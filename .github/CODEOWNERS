@@ -1,0 +1,9 @@
+# Replace the placeholder handles with real GitHub usernames (keep the @).
+# Owners are requested for review automatically when their folder changes.
+*                  @ANIKET-Aniket-Singh25cp
+/ml/               @ANIKET-Aniket-Singh25cp
+/backend/          @KSHITIJ-GITHUB-USERNAME
+/frontend/         @AVIRAL-aviralbajpai171280-droid
+/docs/             @ANMOL-GITHUB-USERNAME
+/data/             @ANMOL-GITHUB-USERNAME
+/.github/          @ANIKET-Aniket-Singh25cp

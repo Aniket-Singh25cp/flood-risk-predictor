@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Secrets and local config (NEVER commit these)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Data and models: large or licensed files stay out of git (see data/README.md)
+data/raw/
+data/processed/
+*.csv
+!data/sample/*.csv
+ml/models/*.joblib
+ml/models/*.pkl
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

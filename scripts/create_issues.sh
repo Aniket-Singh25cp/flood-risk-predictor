@@ -3,7 +3,7 @@
 # and all teammates have ACCEPTED their collaborator invitation (otherwise assigning them fails).
 #   1) Edit the four *_GH usernames below.  2) From the repo folder run: bash scripts/create_issues.sh
 set -euo pipefail
-ANIKET_GH="CHANGE_ME"; KSHITIJ_GH="CHANGE_ME"; AVIRAL_GH="CHANGE_ME"; ANMOL_GH="CHANGE_ME"
+ANIKET_GH="Aniket-Singh25cp"; KSHITIJ_GH="kshitij-tiwari1845"; AVIRAL_GH="aviralbajpai171280-droid"; ANMOL_GH="Anmolcoder01"
 for v in "$ANIKET_GH" "$KSHITIJ_GH" "$AVIRAL_GH" "$ANMOL_GH"; do [ "$v" != "CHANGE_ME" ] || { echo "Edit the usernames at the top of this script first."; exit 1; }; done
 gh auth status >/dev/null || { echo "Run: gh auth login"; exit 1; }
 

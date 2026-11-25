@@ -88,6 +88,11 @@ def build_models(seed: int = 42) -> dict:
     return models
 
 
+def select_best_model(validation_results: dict[str, dict]) -> str:
+    """Choose the artifact from validation metrics, never test metrics."""
+    return max(validation_results, key=lambda name: validation_results[name]["pr_auc"])
+
+
 def run(
     df: pd.DataFrame,
     target: str = "flood",
@@ -100,14 +105,15 @@ def run(
     X_tr, X_tmp, y_tr, y_tmp = train_test_split(X, y, test_size=0.4, stratify=y, random_state=seed)
     X_val, X_te, y_val, y_te = train_test_split(X_tmp, y_tmp, test_size=0.5, stratify=y_tmp, random_state=seed)
 
-    results, fitted = {}, {}
+    results, validation_results, fitted = {}, {}, {}
     for name, model in build_models(seed).items():
         model.fit(X_tr, y_tr)
         thr = pick_threshold_for_recall(y_val, model.predict_proba(X_val)[:, 1], min_recall)
+        validation_results[name] = metrics_at_threshold(y_val, model.predict_proba(X_val)[:, 1], thr)
         results[name] = metrics_at_threshold(y_te, model.predict_proba(X_te)[:, 1], thr)
         fitted[name] = model
 
-    best = max(results, key=lambda k: results[k]["pr_auc"])
+    best = select_best_model(validation_results)
     if save:
         MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
         joblib.dump(

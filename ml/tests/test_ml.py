@@ -46,3 +46,20 @@ def test_pipeline_runs_on_synthetic_data_without_saving():
     out = run(df, save=False)
     assert out["best"] in out["results"]
     assert all(0 <= m["recall"] <= 1 for m in out["results"].values())
+
+
+def test_model_selection_uses_validation_metrics():
+    from ml.src.train import select_best_model
+
+    validation_results = {
+        "model_a": {"pr_auc": 0.80},
+        "model_b": {"pr_auc": 0.60},
+    }
+    test_results = {
+        "model_a": {"pr_auc": 0.40},
+        "model_b": {"pr_auc": 0.90},
+    }
+
+    best = select_best_model(validation_results)
+    assert best == "model_a"
+    assert best != max(test_results, key=lambda name: test_results[name]["pr_auc"])

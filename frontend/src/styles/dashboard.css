@@ -1,0 +1,207 @@
+/* ============================================================
+   dashboard.css — Layout for the app shell and dashboard grid
+   ============================================================ */
+
+/* ── App shell ───────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  display: flex;
+  flex: 1;
+  margin-top: var(--navbar-height);
+}
+
+/* ── Navbar ──────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--navbar-height);
+  background: var(--color-navy);
+  color: var(--color-text-on-dark);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-5);
+  gap: var(--space-4);
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: #fff;
+  text-decoration: none;
+  flex-shrink: 0;
+  letter-spacing: -0.01em;
+}
+.navbar-brand:hover { text-decoration: none; color: #fff; }
+.navbar-brand-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  margin-left: var(--space-4);
+}
+
+.navbar-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.78);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap;
+}
+.navbar-link:hover { background: rgba(255,255,255,0.12); color: #fff; text-decoration: none; }
+.navbar-link.active { background: rgba(255,255,255,0.18); color: #fff; }
+
+.navbar-spacer { flex: 1; }
+
+.navbar-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.75);
+  flex-shrink: 0;
+}
+
+/* Mobile menu toggle */
+.navbar-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.navbar-mobile-menu {
+  display: none;
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0; right: 0;
+  background: var(--color-navy);
+  padding: var(--space-3);
+  z-index: 99;
+  box-shadow: var(--shadow-md);
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.navbar-mobile-menu.open { display: flex; }
+.navbar-mobile-menu .navbar-link { width: 100%; }
+
+@media (max-width: 900px) {
+  .navbar-nav { display: none; }
+  .navbar-menu-btn { display: flex; }
+}
+
+/* ── Page content ────────────────────────────────────────── */
+.page-content {
+  flex: 1;
+  padding: var(--space-6);
+  min-width: 0;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: var(--space-6);
+}
+.page-header h1 { margin-bottom: var(--space-1); }
+.page-header p  { color: var(--color-text-secondary); font-size: 0.875rem; }
+
+/* ── Dashboard grid ──────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.dashboard-grid-full {
+  grid-column: 1 / -1;
+}
+
+.dashboard-col-main { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.dashboard-col-side { display: flex; flex-direction: column; gap: var(--space-4); }
+
+/* ── Form page layout ────────────────────────────────────── */
+.form-page {
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* ── Map page ────────────────────────────────────────────── */
+.map-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: calc(100vh - var(--navbar-height) - var(--space-12));
+}
+
+.map-container {
+  flex: 1;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  min-height: 400px;
+}
+
+/* ── Trends page ─────────────────────────────────────────── */
+.trends-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* ── Responsive breakpoints ──────────────────────────────── */
+@media (max-width: 1100px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .form-page      { grid-template-columns: 1fr; }
+  .trends-grid    { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .page-content { padding: var(--space-4); }
+}
+
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .page-content { padding: var(--space-3); }
+}
+
+/* ── Prediction result — disable sticky on mobile ─────────── */
+@media (max-width: 1100px) {
+  .result-card { position: relative !important; top: 0 !important; }
+}

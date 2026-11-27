@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
+floodrisk.db
 .venv/
 venv/
 .pytest_cache/

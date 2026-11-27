@@ -9,10 +9,26 @@ client = TestClient(app)
 BASE = {"district_id": 1, "rain_1d": 50, "rain_3d": 120, "rain_7d": 250}
 
 
+def test_root_redirects_to_api_docs():
+    r = client.get("/", follow_redirects=False)
+    assert r.status_code in (307, 308)
+    assert r.headers["location"] == "/docs"
+
+
 def test_health():
     r = client.get("/health")
     assert r.status_code == 200
     assert r.json()["status"] == "ok"
+
+
+@pytest.mark.parametrize(
+    "origin",
+    ["http://localhost:5173", "http://127.0.0.1:5173"],
+)
+def test_health_allows_frontend_origins(origin):
+    r = client.get("/health", headers={"Origin": origin})
+    assert r.status_code == 200
+    assert r.headers["access-control-allow-origin"] == origin
 
 
 def test_predict_returns_probability_level_and_disclaimer():
@@ -84,3 +100,11 @@ def test_risk_map_shape_and_mock_flag():
 def test_mock_map_shows_every_risk_level_so_the_ui_can_be_built():
     levels = {d["level"] for d in client.get("/risk-map").json()["districts"]}
     assert levels == set(LEVELS)
+
+
+def test_districts_returns_seeded_district_locations():
+    r = client.get("/districts")
+    assert r.status_code == 200
+    districts = r.json()
+    assert len(districts) >= 3
+    assert {"id", "name", "state", "latitude", "longitude", "elevation_m"} <= set(districts[0])

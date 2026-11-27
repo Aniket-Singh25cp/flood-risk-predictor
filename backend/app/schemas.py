@@ -44,3 +44,12 @@ class DistrictRisk(BaseModel):
 class RiskMapResponse(BaseModel):
     districts: list[DistrictRisk]
     disclaimer: str
+
+
+class DistrictResponse(BaseModel):
+    id: int
+    name: str
+    state: str
+    latitude: float
+    longitude: float
+    elevation_m: float | None = None

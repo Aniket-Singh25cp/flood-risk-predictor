@@ -11,7 +11,7 @@ Base URL (dev): `http://localhost:8000`. All bodies are JSON. Every risk respons
 | `/health` | GET | live | Liveness and model version |
 | `/predict` | POST | live (heuristic until the ML model is plugged in) | Probability and risk level |
 | `/risk-map` | GET | live, **mock data** until BW4 | One risk per district for the map |
-| `/districts` | GET | planned (Kshitij, BW2) | District list with geometry for the map |
+| `/districts` | GET | live | District list with centre points and elevation for the map |
 | `/trend` | GET | planned (BW4) | Multi-day risk from forecast rainfall |
 | `/history` | GET | planned (BW4) | Past flood events for a district |
 | `/alerts/simulate` | POST | planned (BW5) | Create a mock alert and log it |
@@ -52,6 +52,14 @@ Response 200:
 }
 ```
 `mock: true` is removed (or false) once real predictions replace the sample data.
+
+## GET /districts
+Returns a JSON array ordered by district id:
+```json
+[
+  {"id": 1, "name": "Patna", "state": "Bihar", "latitude": 25.59, "longitude": 85.14, "elevation_m": 53}
+]
+```
 
 ## Colour and text mapping (frontend)
 | Level | Colour (suggested) | Text label |
